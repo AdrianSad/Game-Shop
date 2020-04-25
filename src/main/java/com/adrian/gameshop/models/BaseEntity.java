@@ -1,13 +1,25 @@
 package com.adrian.gameshop.models;
 
+import com.sun.deploy.xml.GeneralEntity;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
 
-import org.springframework.data.annotation.Id;
-
+import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@MappedSuperclass
 public class BaseEntity implements Serializable {
 
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(name = "name")
+    @NotEmpty
     private String name;
 }
