@@ -5,7 +5,9 @@ import com.adrian.gameshop.repositories.GameRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -28,11 +30,18 @@ public class GameServiceImpl implements GameService {
 
     @Override
     public Game findById(Long id) {
-        return null;
+
+        Optional<Game> gameOptional = gameRepository.findById(id);
+
+        if(gameOptional.isPresent())
+            return gameOptional.get();
+        else
+            throw new RuntimeException("Game Not Found For ID : " + id);
+
     }
 
     @Override
     public void deleteById(Long id) {
-
+        gameRepository.deleteById(id);
     }
 }

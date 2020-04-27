@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: header(title ='Game details')}"></head>
+
+<body>
+
+<nav th:replace="~{fragments/layout :: navigation}"></nav>
+
+<div class="container-fluid" style="margin-top: 100px">
+    <div class="col-md-10 offset-md-1">
+        <div class="row">
+            <div class="col-md-2">
+                <img class="rounded float-left" style="height: 300px; width: 200px"
+                     th:src="@{/images/wiedzmin3_okladka.jpg}" src="../../static/images/wiedzmin3_okladka.jpg"
+                     alt="Wiedźmin 3">
+            </div>
+            <div class="col-md-8">
+                <div class="row">
+                    <h1 th:text="${game.name}">title</h1>
+                </div>
+                <div class="row">
+                    <h5 th:text="${game.company.name}">company</h5>
+                </div>
+                <div class="row" style="margin-top: 20px">
+                    <p th:text="${game.description}">desc</p>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="margin-top: 10px">
+            <div class="col-md-2">
+                <ul>
+                    <li th:each="category : ${game.categories}" th:text="${category.name}">cat</li>
+                </ul>
+            </div>
+            <div class="col-md-10">
+                <h6 class="text-center" th:text="${game.platforms}"></h6>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

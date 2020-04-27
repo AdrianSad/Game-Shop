@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: header(title ='Game List')}"></head>
+<body>
+<nav th:replace="~{fragments/layout :: navigation}"></nav>
+<div class="container-fluid" style="margin-top: 20px">
+    <!--full width container, spanning the entire width of your viewport-->
+    <div class="row">
+        <div class="col-md-10 offset-md-1">
+
+            <div class="card border-0" th:if="${not #lists.isEmpty(games)}">
+                <div class="card border-dark" style="margin-top: 10px" th:each="game : ${games}">
+
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <h2 class="card-title" th:text="${game.name}">title</h2>
+                            </div>
+                            <div class="col-md-2">
+                                <h6 class="float-md-right" th:text="${game.price} + '$'" style="color: limegreen; margin-top: 10px">price</h6>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <img class="rounded float-left" style="height: 300px; width: 200px"
+                                     th:src="@{/images/wiedzmin3_okladka.jpg}"
+                                     src="../../static/images/wiedzmin3_okladka.jpg"
+                                     alt="Wiedźmin 3">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="row">
+                                    <h4 th:text="${game.company.name}">company</h4>
+                                </div>
+                                <div class="row">
+                                    <ul>
+                                        <li th:each="category : ${game.categories}" th:text="${category.name}">
+                                            cat
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <a href="#" th:href="@{'/games/' + ${game.id} + '/show'}"
+                                   class="btn btn-outline-dark" role="button" style="vertical-align: middle">More details</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

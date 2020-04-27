@@ -69,7 +69,7 @@ public class DataLoader implements CommandLineRunner {
         game1.getCategories().add(tpp);
         game1.getCategories().add(sandbox);
 
-        game1.setPlatforms(Platform.PC + "\n" + Platform.XBOXONE + "\n" + Platform.PS4);
+        game1.setPlatforms(Platform.PC.getName() + "\n" + Platform.XBOXONE.getName() + "\n" + Platform.PS4.getName());
         cdp.addGame(game1);
 
         gameRepository.save(game1);

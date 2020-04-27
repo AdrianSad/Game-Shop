@@ -1,7 +1,11 @@
 package com.adrian.gameshop.models;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.Setter;
 
+@AllArgsConstructor
+@Getter
 public enum Platform {
     PS4("PlayStation 4"),
     PS3("PlayStation 3"),
@@ -9,13 +13,5 @@ public enum Platform {
     XBOX360("Xbox 360"),
     PC("Microsoft Windows");
 
-    private String name;
-
-    Platform(String name) {
-        this.name = name;
-    }
-
-    public String getName(){
-        return name;
-    }
+    private final String name;
 }
