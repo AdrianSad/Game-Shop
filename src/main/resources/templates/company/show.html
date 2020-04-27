@@ -1,10 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: header(title ='Company List')}"></head>
 
+<body>
+<nav th:replace="~{fragments/layout :: navigation}"></nav>
+<div class="col-md-6 offset-3">
+    <div class="card-deck" th:if="${not #lists.isEmpty(companyGames)}" style="margin-top: 20px">
+        <div class="card text-center" th:each="game : ${companyGames}">
+            <img src="..." th:src="@{/images/wiedzmin.jpg}" class="card-img-top" alt="Game Image" style="max-height: 400px">
+            <div class="card-body">
+                <h5 class="card-title" th:text="${game.name}">Card title</h5>
+                <p class="card-text" th:text="${game.description}">Game description</p>
+                <a href="#" th:href="@{'/games/' + ${game.id} + '/show'}"
+                   class="btn btn-outline-dark" role="button">More details</a>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>

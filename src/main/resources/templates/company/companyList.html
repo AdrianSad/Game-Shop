@@ -24,7 +24,7 @@
                     <td th:text="${company.name}">name</td>
                     <td th:text="${company.nationality}">nationality</td>
                     <td>
-                        <a href="#">Show games</a>
+                        <a href="#" th:href="@{'/companies/' + ${company.id} + '/show'}">Show games</a>
                     </td>
                 </tr>
                 </tbody>

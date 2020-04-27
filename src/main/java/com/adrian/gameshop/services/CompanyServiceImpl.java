@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @Service
 public class CompanyServiceImpl implements CompanyService{
@@ -32,11 +34,12 @@ public class CompanyServiceImpl implements CompanyService{
 
     @Override
     public Set<Game> getCompanyGames(Long companyId) {
-        Set<Game> games = new HashSet<>();
-        gameRepository.findAll().forEach(games::add);
-        Set<Game> companyGames = new HashSet<>();
-        games.stream().filter(game -> game.getCompany().getId().equals(companyId)).findFirst().map(companyGames::add);
-        return companyGames;
+
+        return StreamSupport.stream(gameRepository.findAll()
+                .spliterator(), false)
+                .filter(game -> game.getCompany().getId().equals(companyId))
+                .collect(Collectors.toSet());
+
     }
 
     @Override
