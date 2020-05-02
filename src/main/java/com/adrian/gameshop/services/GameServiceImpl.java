@@ -41,6 +41,12 @@ public class GameServiceImpl implements GameService {
     }
 
     @Override
+    public Game saveGame(Game game) {
+        game.getCompany().addGame(game);
+        return gameRepository.save(game);
+    }
+
+    @Override
     public void deleteById(Long id) {
         gameRepository.deleteById(id);
     }

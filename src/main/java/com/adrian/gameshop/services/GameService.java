@@ -11,5 +11,7 @@ public interface GameService {
 
     Game findById(Long id);
 
+    Game saveGame(Game game);
+
     void deleteById(Long id);
 }
