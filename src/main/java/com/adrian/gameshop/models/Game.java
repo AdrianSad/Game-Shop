@@ -35,7 +35,6 @@ public class Game extends BaseEntity{
     private BigDecimal price;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @Column(name = "company")
     private Company company;
 
     @Lob
