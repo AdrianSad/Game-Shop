@@ -83,7 +83,7 @@ public class DataLoader implements CommandLineRunner {
         game2.getCategories().add(tpp);
         game2.getCategories().add(sandbox);
 
-        game2.setPlatforms(Platform.PC + "\n" + Platform.XBOXONE + "\n" + Platform.PS4);
+        game2.setPlatforms(Platform.PC.getName() + "\n" + Platform.XBOXONE.getName() + "\n" + Platform.PS4.getName());
         ubisoft.addGame(game2);
 
         gameRepository.save(game2);
@@ -97,7 +97,7 @@ public class DataLoader implements CommandLineRunner {
         game3.getCategories().add(fps);
         game3.getCategories().add(sandbox);
 
-        game3.setPlatforms(Platform.PC + "\n" + Platform.XBOXONE + "\n" + Platform.XBOX360 + "\n" + Platform.PS4 + "\n" + Platform.PS3);
+        game3.setPlatforms(Platform.PC + "\n" + Platform.XBOXONE.getName() + "\n" + Platform.XBOX360.getName() + "\n" + Platform.PS4.getName() + "\n" + Platform.PS3.getName());
         ubisoft.addGame(game3);
 
         gameRepository.save(game3);
