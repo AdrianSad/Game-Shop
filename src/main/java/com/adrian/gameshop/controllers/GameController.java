@@ -4,12 +4,18 @@ import com.adrian.gameshop.models.Game;
 import com.adrian.gameshop.repositories.CategoryRepository;
 import com.adrian.gameshop.services.CompanyService;
 import com.adrian.gameshop.services.GameService;
+import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 
 @Controller
 @RequestMapping("/games")
@@ -57,6 +63,35 @@ public class GameController {
         }
 
         Game savedGame = gameService.saveGame(game);
-        return "redirect:/games/" + savedGame.getId() + "/show";
+        return "redirect:/games/" + savedGame.getId() + "/image";
+    }
+
+    @GetMapping("{id}/image")
+    public String newImageForm(@PathVariable Long id, Model model){
+
+        model.addAttribute("game", gameService.findById(id));
+        return "game/uploadImageForm";
+    }
+
+    @PostMapping("{id}/image")
+    public String saveOrUpdateImage(@PathVariable Long id, @RequestParam("file") MultipartFile file){
+
+        gameService.saveImageFile(id,file);
+        return "redirect:/games/" + id + "/show";
+    }
+
+    @GetMapping("/{id}/gameImage")
+    public void renderImage(@PathVariable Long id, HttpServletResponse response) throws IOException {
+
+        Game game = gameService.findById(id);
+        byte[] byteArray = new byte[game.getImage().length];
+        int i = 0;
+
+        for (Byte wrappedByte : game.getImage()){
+            byteArray[i++] = wrappedByte;
+        }
+        response.setContentType("image/jpeg");
+        InputStream inputStream = new ByteArrayInputStream(byteArray);
+        IOUtils.copy(inputStream, response.getOutputStream());
     }
 }

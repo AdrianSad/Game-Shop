@@ -3,7 +3,9 @@ package com.adrian.gameshop.services;
 import com.adrian.gameshop.models.Game;
 import com.adrian.gameshop.repositories.GameRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -49,5 +51,25 @@ public class GameServiceImpl implements GameService {
     @Override
     public void deleteById(Long id) {
         gameRepository.deleteById(id);
+    }
+
+    @Override
+    public void saveImageFile(Long gameId, MultipartFile file) {
+
+        try{
+            Game game = findById(gameId);
+            Byte[] byteObject = new Byte[file.getBytes().length];
+            int i = 0;
+
+            for(byte b : file.getBytes()){
+                byteObject[i++] = b;
+            }
+
+            game.setImage(byteObject);
+            gameRepository.save(game);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: header(title ='Upload image')}"></head>
+
+<body>
+<nav th:replace="~{fragments/layout :: navigation}"></nav>
+
+<div class="container-fluid">
+    <div class="col-md-6 offset-3" style="margin-top: 50px">
+        <h1 style="text-align: center">Upload Game's Image</h1>
+
+        <form  action="http:\\localhost" method="post" enctype="multipart/form-data"
+               th:action="@{'/games/' + ${game.getId()} + '/image'}">
+            <label class="control-label">Select File</label>
+            <input id="imageFile" name="file" type="file" class="custom-file">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+
+    </div>
+</div>
+</body>
+</html>
