@@ -5,8 +5,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
+@RequestMapping("/companies")
 public class CompanyController {
 
     private final CompanyService companyService;
@@ -15,14 +17,14 @@ public class CompanyController {
         this.companyService = companyService;
     }
 
-    @GetMapping("/companies")
+    @GetMapping
     public String companyListPage(Model model){
 
         model.addAttribute("companies", companyService.getCompanies());
         return "company/companyList";
     }
 
-    @GetMapping("/companies/{id}/show")
+    @GetMapping("/{id}/show")
     public String companyGamesPage(@PathVariable Long id, Model model){
 
         model.addAttribute("companyGames", companyService.getCompanyGames(id));
