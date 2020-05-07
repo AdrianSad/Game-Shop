@@ -19,6 +19,7 @@ public class BaseEntity implements Serializable {
     @Column(name = "id")
     private Long id;
 
+
     @Column(name = "name")
     @NotEmpty
     private String name;
