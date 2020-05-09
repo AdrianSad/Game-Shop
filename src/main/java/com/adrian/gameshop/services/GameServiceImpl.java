@@ -3,6 +3,7 @@ package com.adrian.gameshop.services;
 import com.adrian.gameshop.models.Game;
 import com.adrian.gameshop.repositories.GameRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -31,6 +32,7 @@ public class GameServiceImpl implements GameService {
     }
 
     @Override
+    @Transactional
     public Game findById(Long id) {
 
         Optional<Game> gameOptional = gameRepository.findById(id);
@@ -43,6 +45,7 @@ public class GameServiceImpl implements GameService {
     }
 
     @Override
+    @Transactional
     public Game saveGame(Game game) {
         game.getCompany().addGame(game);
         return gameRepository.save(game);
@@ -54,6 +57,7 @@ public class GameServiceImpl implements GameService {
     }
 
     @Override
+    @Transactional
     public void saveImageFile(Long gameId, MultipartFile file) {
 
         try{
