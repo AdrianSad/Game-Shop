@@ -35,6 +35,7 @@ public class GameController {
     public String gamesListPage(Model model){
 
         model.addAttribute("games", gameService.getGames());
+
         return "game/gamesList";
     }
 
@@ -42,6 +43,7 @@ public class GameController {
     public String showGame(@PathVariable Long id, Model model){
 
         model.addAttribute("game", gameService.findById(id));
+
         return "game/show";
     }
 
@@ -63,21 +65,41 @@ public class GameController {
         }
 
         Game savedGame = gameService.saveGame(game);
+
         return "redirect:/games/" + savedGame.getId() + "/image";
     }
 
-    @GetMapping("{id}/image")
+    @GetMapping("/{id}/image")
     public String newImageForm(@PathVariable Long id, Model model){
 
         model.addAttribute("game", gameService.findById(id));
         return "game/uploadImageForm";
     }
 
-    @PostMapping("{id}/image")
+    @PostMapping("/{id}/image")
     public String saveOrUpdateImage(@PathVariable Long id, @RequestParam("file") MultipartFile file){
 
         gameService.saveImageFile(id,file);
+
         return "redirect:/games/" + id + "/show";
+    }
+
+    @GetMapping("/{id}/delete")
+    public String deleteGame(@PathVariable Long id){
+
+        gameService.deleteById(id);
+
+        return "redirect:/games";
+    }
+
+    @GetMapping("/{id}/update")
+    public String updateGame(@PathVariable Long id, Model model){
+
+        model.addAttribute("game", gameService.findById(id));
+        model.addAttribute("companies", companyService.getCompanies());
+        model.addAttribute("categories", categoryRepository.findAll());
+
+        return "game/createForm";
     }
 
     @GetMapping("/{id}/gameImage")

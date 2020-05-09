@@ -44,7 +44,11 @@
                             </div>
                             <div class="col-md-2">
                                 <a href="#" th:href="@{'/games/' + ${game.id} + '/show'}"
-                                   class="btn btn-outline-dark" role="button" style="vertical-align: middle">More details</a>
+                                   class="btn btn-outline-dark btn-block" role="button" style="vertical-align: middle">More details</a>
+                                <a href="#" th:href="@{'/games/' + ${game.id} + '/update'}"
+                                   class="btn btn-outline-success btn-block" role="button" style="vertical-align: middle">Update</a>
+                                <a href="#" th:href="@{'/games/' + ${game.id} + '/delete'}"
+                                   class="btn btn-outline-danger btn-block" role="button" style="vertical-align: middle">Delete</a>
                             </div>
                         </div>
                     </div>
