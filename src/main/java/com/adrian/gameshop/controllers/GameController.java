@@ -58,9 +58,12 @@ public class GameController {
     }
 
     @PostMapping("/new")
-    public String saveOrUpdateGame(@Valid @ModelAttribute("game") Game game, BindingResult bindingResult){
+    public String saveOrUpdateGame(@Valid @ModelAttribute("game") Game game, BindingResult bindingResult, Model model){
 
         if(bindingResult.hasErrors()){
+
+            model.addAttribute("companies", companyService.getCompanies());
+            model.addAttribute("categories", categoryRepository.findAll());
             return "game/createForm";
         }
 

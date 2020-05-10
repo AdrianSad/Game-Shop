@@ -5,6 +5,7 @@ import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Getter
@@ -20,6 +21,6 @@ public class BaseEntity implements Serializable {
     private Long id;
 
     @Column(name = "name")
-    @NotEmpty
+    @NotNull
     private String name;
 }
