@@ -5,7 +5,10 @@ import com.adrian.gameshop.models.Game;
 import com.adrian.gameshop.repositories.CompanyRepository;
 import com.adrian.gameshop.repositories.GameRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -43,6 +46,7 @@ public class CompanyServiceImpl implements CompanyService{
     }
 
     @Override
+    @Transactional
     public Company findById(Long id) {
 
         Optional<Company> companyOptional = companyRepository.findById(id);
@@ -52,6 +56,40 @@ public class CompanyServiceImpl implements CompanyService{
         }
         else
             throw new RuntimeException("Company Not Found For ID : " + id);
+    }
+
+    @Override
+    @Transactional
+    public Company saveCompany(Company company) {
+
+        return companyRepository.save(company);
+    }
+
+    @Override
+    public void deleteById(Long id) {
+
+        companyRepository.deleteById(id);
+    }
+
+    @Override
+    @Transactional
+    public void saveImageFile(Long companyId, MultipartFile file) {
+
+        try{
+            Company company = findById(companyId);
+            Byte[] byteObject = new Byte[file.getBytes().length];
+            int i = 0;
+
+            for(byte b : file.getBytes()){
+                byteObject[i++] = b;
+            }
+
+            company.setLogo(byteObject);
+            companyRepository.save(company);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }

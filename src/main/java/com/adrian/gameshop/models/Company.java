@@ -7,6 +7,7 @@ import org.springframework.data.annotation.Id;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.List;
@@ -22,6 +23,7 @@ import java.util.Set;
 public class Company extends BaseEntity{
 
 
+    @NotNull
     @Column(name = "nationality")
     private String nationality;
 
@@ -45,10 +47,5 @@ public class Company extends BaseEntity{
     public void addGame(Game game){
         game.setCompany(this);
         games.add(game);
-    }
-
-    public void removeGame(Game game){
-        games.remove(game);
-        game.setCompany(null);
     }
 }

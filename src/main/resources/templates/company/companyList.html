@@ -16,6 +16,8 @@
                     <th scope="col">Name</th>
                     <th scope="col">Nationality</th>
                     <th scope="col">Company games</th>
+                    <th scope="col">Update company</th>
+                    <th scope="col">Delete company</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -25,6 +27,14 @@
                     <td th:text="${company.nationality}">nationality</td>
                     <td>
                         <a href="#" th:href="@{'/companies/' + ${company.id} + '/show'}">Show games</a>
+                    </td>
+
+                    <td>
+                        <a href="#" th:href="@{'/companies/' + ${company.id} + '/update'}">Update</a>
+                    </td>
+
+                    <td>
+                        <a href="#" th:href="@{'/companies/' + ${company.id} + '/delete'}">Delete</a>
                     </td>
                 </tr>
                 </tbody>
