@@ -32,8 +32,6 @@ public class Game extends BaseEntity{
     @Column(name = "platforms")
     private String platforms;
 
-    @NotNull
-    @Size(min = 1)
     @ManyToMany
     @JoinTable(name = "game_category",
     joinColumns = @JoinColumn(name = "game_id"),
@@ -45,7 +43,6 @@ public class Game extends BaseEntity{
     @Column(name = "price")
     private BigDecimal price;
 
-    @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     private Company company;
 

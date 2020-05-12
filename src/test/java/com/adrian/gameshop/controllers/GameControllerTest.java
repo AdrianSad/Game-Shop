@@ -1,5 +1,6 @@
 package com.adrian.gameshop.controllers;
 
+import com.adrian.gameshop.models.Category;
 import com.adrian.gameshop.models.Company;
 import com.adrian.gameshop.models.Game;
 import com.adrian.gameshop.repositories.CategoryRepository;
@@ -111,7 +112,10 @@ class GameControllerTest {
         mockMvc.perform(post("/games/new")
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                 .param("id", "1")
-                .param("name", "name test"))
+                .param("name", "name test")
+                .param("description", "desc test test test test test test")
+                .param("platforms", "platforms test")
+                .param("price", "123"))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/games/1/image"));
 
@@ -175,5 +179,19 @@ class GameControllerTest {
         byte[] responseBytes = response.getContentAsByteArray();
 
         assertEquals(testString.getBytes().length, responseBytes.length);
+    }
+
+    @Test
+    void updateGame() throws Exception {
+
+        Game game = new Game();
+        game.setId(1L);
+
+        when(gameService.findById(anyLong())).thenReturn(game);
+
+        mockMvc.perform(get("/games/1/update"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("game/createForm"))
+                .andExpect(model().attributeExists("game"));
     }
 }
