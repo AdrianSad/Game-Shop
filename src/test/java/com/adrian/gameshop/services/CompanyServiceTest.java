@@ -7,12 +7,16 @@ import com.adrian.gameshop.repositories.GameRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -97,5 +101,51 @@ class CompanyServiceTest {
         assertNotNull(companyFound, "Null company returned");
         verify(companyRepository, times(1)).findById(anyLong());
 
+    }
+
+    @Test
+    void saveCompany(){
+
+        Company company = Company.builder().id(1L).build();
+
+        when(companyRepository.save(any())).thenReturn(company);
+
+        Company savedCompany = companyService.saveCompany(company);
+
+        assertNotNull(savedCompany, "Returned company is null");
+        assertEquals(1, savedCompany.getId());
+        verify(companyRepository, times(1)).save(any(Company.class));
+    }
+
+    @Test
+    void deleteById(){
+
+        companyService.deleteById(1L);
+
+        verify(companyRepository, times(1)).deleteById(anyLong());
+    }
+
+    @Test
+    void saveImageFile() throws IOException {
+
+        Long id = 1L;
+
+        MultipartFile multipartFile = new MockMultipartFile("file",
+                "testing.txt",
+                "text/plain",
+                "TEST".getBytes());
+
+        Company company = Company.builder().id(1L).build();
+        Optional<Company> companyOptional = Optional.of(company);
+
+        when(companyRepository.findById(anyLong())).thenReturn(companyOptional);
+
+        ArgumentCaptor<Company> argumentCaptor = ArgumentCaptor.forClass(Company.class);
+
+        companyService.saveImageFile(id, multipartFile);
+
+        verify(companyRepository, times(1)).save(argumentCaptor.capture());
+        Company savedCompany = argumentCaptor.getValue();
+        assertEquals(multipartFile.getBytes().length, savedCompany.getLogo().length);
     }
 }
