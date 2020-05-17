@@ -3,31 +3,39 @@
 Simple game shop application where u can do CRUD operations on games and its companies.
 
 ## Running Game Shop
-
-`git clone https://github.com/AdrianSad/Game-Shop.git
+```
+git clone https://github.com/AdrianSad/Game-Shop.git
 cd game-shop
 ./mvnw package
-java -jar target/*.jar`
-
+java -jar target/*.jar
+```
 ## Get Started
 
 You can access game shop here: http://localhost:8080/
 
+
 ## Technologies : 
 
 **Controller :** Spring MVC
+
 **Repository :** Spring Data JPA
+
 **ORM :** Hibernate
 
-**Web layer :** 
-Thymeleaf
-Bootstrap
-Webjars
+
+**Web layer :**
+
+- Thymeleaf
+- Bootstrap
+- Webjars
+
 
 **Databases :**
-H2 in memory database
-MySQL
 
-**Tests :**
-Mockito
-JUnit
+- H2 in memory database
+- MySQL
+
+
+**Tests :** 
+- Mockito 
+- JUnit 
