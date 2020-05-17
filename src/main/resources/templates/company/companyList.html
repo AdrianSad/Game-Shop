@@ -13,6 +13,7 @@
                 <thead class="thead-dark">
                 <tr>
                     <th scope="col">ID</th>
+                    <th scope="col">Logo</th>
                     <th scope="col">Name</th>
                     <th scope="col">Nationality</th>
                     <th scope="col">Company games</th>
@@ -23,6 +24,15 @@
                 <tbody>
                 <tr th:each="company : ${companies}">
                     <td th:text="${company.id}">1</td>
+                    <td>
+                        <img class="card-img-top" alt="Company Image" style="height: 50px; width: 50px"
+                             th:unless="${company.logo != null}"
+                             th:src="@{/images/image-placeholder.jpg}" src="../../static/images/image-placeholder.jpg">
+                        <img class="card-img-top" alt="Company Image" style="height: 50px; width: 50px"
+                             th:if="${company.logo != null}"
+                             th:src="@{'/companies/' + ${company.id} + '/companyImage'}"
+                             src="../../static/images/image-placeholder.jpg">
+                    </td>
                     <td th:text="${company.name}">name</td>
                     <td th:text="${company.nationality}">nationality</td>
                     <td>
