@@ -13,6 +13,24 @@ java -jar target/*.jar
 
 You can access game shop here: http://localhost:8080/
 
+In application.properties set the profile and database : 
+```
+spring.profiles.active=h2
+database=h2
+```
+
+or
+
+```
+spring.profiles.active=mysql
+database=mysql
+```
+
+For mysql profile you will need MySQL Database which you can download here : https://dev.mysql.com/downloads/
+
+1. Download and install the MySQL database
+2. Set up application.properties-mysql settings
+3. Run the app with `spring.profiles.active=mysql`
 
 ## Technologies : 
 
