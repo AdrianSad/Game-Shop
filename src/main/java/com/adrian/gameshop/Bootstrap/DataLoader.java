@@ -11,6 +11,7 @@ import com.adrian.gameshop.services.CompanyService;
 import com.adrian.gameshop.services.GameService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Profile;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.stereotype.Component;
@@ -21,6 +22,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.math.BigDecimal;
 
+@Profile({"h2", "mysql"})
 @Slf4j
 @Component
 public class DataLoader implements CommandLineRunner {
@@ -43,8 +45,16 @@ public class DataLoader implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        loadData();
+        loadImages();
+        log.info("####  Loaded Images  ####");
+
+        loadLogos();
+        log.info("####  Loaded Logos  ####");
     }
+
+    /*
+     YOU CAN USE THIS FUNCTION TO INITIALIZE DATA INSTEAD OF SQL SCRIPT
+     */
 
     private void loadData() {
 
@@ -115,14 +125,6 @@ public class DataLoader implements CommandLineRunner {
         gameRepository.save(game3);
 
         log.info("####  Loaded " + gameRepository.count() + " games  ####");
-
-        loadImages();
-
-        log.info("####  Loaded images  ####");
-
-        loadLogos();
-
-        log.info("####  Loaded logos  ####");
     }
 
     private void loadImages() {

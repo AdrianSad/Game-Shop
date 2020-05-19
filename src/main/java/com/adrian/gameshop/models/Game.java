@@ -32,7 +32,7 @@ public class Game extends BaseEntity{
     @Column(name = "platforms")
     private String platforms;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "game_category",
     joinColumns = @JoinColumn(name = "game_id"),
     inverseJoinColumns = @JoinColumn(name = "category_id"))
@@ -43,7 +43,7 @@ public class Game extends BaseEntity{
     @Column(name = "price")
     private BigDecimal price;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private Company company;
 
     @Lob
