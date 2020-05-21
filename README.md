@@ -57,3 +57,21 @@ For mysql profile you will need MySQL Database which you can download here : htt
 **Tests :** 
 - Mockito 
 - JUnit 
+
+## Functionality overview
+
+`http://localhost:8080/games`
+
+![Game List](/img/games.png)
+
+`http://localhost:8080/companies`
+
+![Company List](/img/companies.png)
+
+`http://localhost:8080/games/1/show`
+
+![Game detail](/img/games_1_show.png)
+
+`http://localhost:8080/companies/3/show`
+
+![Company games detail](/img/companies_2_show.png)
