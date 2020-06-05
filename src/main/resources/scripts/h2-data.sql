@@ -12,3 +12,12 @@ INSERT INTO categories(id, name) VALUES (1, 'RPG'), (2, 'FPP'), (3, 'FPS'), (4,'
 INSERT INTO game_category(game_id, category_id) VALUES (1, 1), (1,7), (1,8);
 INSERT INTO game_category(game_id, category_id) VALUES (2, 7), (2,8);
 INSERT INTO game_category(game_id, category_id) VALUES (3, 2), (3,3), (3,8);
+
+INSERT INTO users(id, first_name, last_name, email, password) VALUES (1, 'Adrian', 'Sadurski', 'adrian@example.com', '$2y$12$29I3hHm6hAV0GrPYU8NHxOwAmNFjOvLb7V2bNCLQCq3eZHRFlp4Ge');
+INSERT INTO users(id, first_name, last_name, email, password) VALUES (2, 'Jan', 'Kowalski', 'jan@example.com', '$2y$12$29I3hHm6hAV0GrPYU8NHxOwAmNFjOvLb7V2bNCLQCq3eZHRFlp4Ge');
+
+INSERT INTO user_roles(id, name) VALUES (1, 'ADMIN');
+INSERT INTO user_roles(id, name) VALUES (2, 'CUSTOMER');
+
+INSERT INTO users_roles(userID, roleID) VALUES (1,1);
+INSERT INTO users_roles(userID, roleID) VALUES (2,2);

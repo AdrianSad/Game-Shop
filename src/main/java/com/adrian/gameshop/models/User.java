@@ -27,12 +27,12 @@ public class User {
 
     @NotNull
     @NotEmpty
-    @Column(name = "firstName")
+    @Column(name = "first_name")
     private String firstName;
 
     @NotNull
     @NotEmpty
-    @Column(name = "lastName")
+    @Column(name = "last_name")
     private String lastName;
 
     @ValidEmail

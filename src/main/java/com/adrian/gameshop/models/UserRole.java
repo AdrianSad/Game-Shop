@@ -4,6 +4,6 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "userRoles")
+@Table(name = "user_roles")
 public class UserRole extends BaseEntity{
 }
