@@ -12,7 +12,7 @@
     <artifactId>game-shop</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>Game Shop</name>
-    <description>Reactive app using spring framework</description>
+    <description>Game shop application using spring framework</description>
 
     <properties>
         <java.version>1.8</java.version>
