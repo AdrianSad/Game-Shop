@@ -33,6 +33,14 @@ public class GameController {
 
     @GetMapping
     public String gamesListPage(Model model){
+        /*
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userDetail = (UserDetails) auth.getPrincipal();
+
+
+        User u = userService.getUser(userDetail.getUsername());
+        request.getSession().setAttribute("userId", u.getId());
+        */
 
         model.addAttribute("games", gameService.getGames());
 

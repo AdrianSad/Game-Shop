@@ -43,6 +43,10 @@ public class Game extends BaseEntity{
     @ManyToOne(fetch = FetchType.EAGER)
     private Company company;
 
+    @ManyToOne
+    @NotNull
+    private User user;
+
     @Lob
     @Column(name = "image")
     private Byte[] image;

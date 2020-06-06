@@ -14,6 +14,16 @@ nationality VARCHAR(20) NOT NULL,
 logo LONGBLOB
 );
 
+CREATE TABLE users
+(
+    id INTEGER IDENTITY PRIMARY KEY,
+    first_name VARCHAR(30) NOT NULL,
+    last_name VARCHAR(50) NOT NULL,
+    email VARCHAR(50) NOT NULL,
+    password VARCHAR(80) NOT NULL,
+    UNIQUE (email)
+);
+
 CREATE TABLE games
 (
 id INTEGER IDENTITY PRIMARY KEY,
@@ -22,9 +32,11 @@ description TEXT NOT NULL,
 platforms VARCHAR(128),
 price FLOAT(2) NOT NULL,
 company_id INTEGER NOT NULL,
+user_id INTEGER NOT NULL,
 image LONGBLOB
 );
 
+ALTER TABLE games ADD CONSTRAINT user_games_cst FOREIGN KEY (user_id) REFERENCES users(id);
 ALTER TABLE games ADD CONSTRAINT company_cst FOREIGN KEY (company_id) REFERENCES companies(id);
 
 CREATE TABLE categories
@@ -37,16 +49,6 @@ CREATE TABLE game_category
 (
 game_id INTEGER NOT NULL,
 category_id INTEGER NOT NULL
-);
-
-CREATE TABLE users
-(
-    id INTEGER IDENTITY PRIMARY KEY,
-    first_name VARCHAR(30) NOT NULL,
-    last_name VARCHAR(50) NOT NULL,
-    email VARCHAR(50) NOT NULL,
-    password VARCHAR(80) NOT NULL,
-UNIQUE (email)
 );
 
 CREATE TABLE user_roles

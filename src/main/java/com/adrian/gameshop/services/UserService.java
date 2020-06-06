@@ -6,4 +6,5 @@ import com.adrian.gameshop.models.User;
 public interface UserService {
 
     User registerNewUserAccount(User user) throws EmailExistsException;
+    User getUser(String username);
 }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:replace="~{fragments/layout :: header(title ='Game List')}"></head>
 <body>
 <nav th:replace="~{fragments/layout :: navigation}"></nav>
@@ -7,7 +7,6 @@
     <!--full width container, spanning the entire width of your viewport-->
     <div class="row">
         <div class="col-md-10 offset-md-1">
-
             <div class="card border-0" th:if="${not #lists.isEmpty(games)}">
                 <div class="card border-dark" style="margin-top: 10px" th:each="game : ${games}">
 
@@ -49,10 +48,26 @@
                             <div class="col-md-2">
                                 <a href="#" th:href="@{'/games/' + ${game.id} + '/show'}"
                                    class="btn btn-outline-dark btn-block" role="button" style="vertical-align: middle">More details</a>
-                                <a href="#" th:href="@{'/games/' + ${game.id} + '/update'}"
-                                   class="btn btn-outline-success btn-block" role="button" style="vertical-align: middle">Update</a>
-                                <a href="#" th:href="@{'/games/' + ${game.id} + '/delete'}"
-                                   class="btn btn-outline-danger btn-block" role="button" style="vertical-align: middle">Delete</a>
+
+                                <div th:switch="${#authentication.name} == ${game.getUser().getEmail()}" style="margin-top: 10px">
+
+                                    <div th:case="true">
+                                    <a href="#" th:href="@{'/games/' + ${game.id} + '/update'}"
+                                        class="btn btn-outline-success btn-block" role="button" style="vertical-align: middle">Update</a>
+                                    <a href="#" th:href="@{'/games/' + ${game.id} + '/delete'}"
+                                       class="btn btn-outline-danger btn-block" role="button" style="vertical-align: middle">Delete</a>
+                                    </div>
+
+                                    <div th:case="false">
+                                        <a sec:authorize="hasRole('ROLE_ADMIN')" href="#" th:href="@{'/games/' + ${game.id} + '/update'}"
+                                           class="btn btn-outline-success btn-block" role="button" style="vertical-align: middle">Update</a>
+                                        <a sec:authorize="hasRole('ROLE_ADMIN')" href="#" th:href="@{'/games/' + ${game.id} + '/delete'}"
+                                           class="btn btn-outline-danger btn-block" role="button" style="vertical-align: middle">Delete</a>
+                                    </div>
+                                    </div>
+                                </div>
+
+
                             </div>
                         </div>
                     </div>
