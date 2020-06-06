@@ -1,6 +1,6 @@
 # Game-Shop [![CircleCI](https://circleci.com/gh/AdrianSad/Game-Shop.svg?style=svg&circle-token=4dd285f47055803028fc8f1f90f70cb50c89820c)](<LINK>)
 
-Simple game shop application where u can do CRUD operations on games and its companies.
+Simple game shop where u can do CRUD operations on games and its companies. Application is secured by Spring Security, for example you need to log in as Admin to delete a product.
 
 ## Running Game Shop
 ```
@@ -19,6 +19,9 @@ spring.profiles.active=h2
 database=h2
 ```
 
+The h2 console is automatically exposed at http://localhost:8080/h2-console and it is possible to inspect the content of the database using the jdbc:h2:mem:testdb url.
+
+
 or
 
 ```
@@ -30,7 +33,8 @@ For mysql profile you will need MySQL Database which you can download here : htt
 
 1. Download and install the MySQL database
 2. Set up application.properties-mysql settings
-3. Run the app with `spring.profiles.active=mysql`
+3. Run mysql-configure.sql inside MySQL workbench
+4. Run the app with `spring.profiles.active=mysql`
 
 ## Technologies : 
 
@@ -40,6 +44,7 @@ For mysql profile you will need MySQL Database which you can download here : htt
 
 **ORM :** Hibernate
 
+**Access-control  :** Spring Security
 
 **Web layer :**
 
