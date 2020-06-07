@@ -38,7 +38,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .httpBasic()
                 .and()
                 .csrf().disable()
-                .logout().logoutSuccessUrl("/");
+                .logout().deleteCookies("JSESSIONID").logoutSuccessUrl("/")
+                .and()
+                .rememberMe().rememberMeParameter("remember-me").key("uniqueAndSecret").tokenValiditySeconds(900);
     }
 
     @Override
