@@ -5,6 +5,7 @@ import com.adrian.gameshop.repositories.CategoryRepository;
 import com.adrian.gameshop.services.CompanyService;
 import com.adrian.gameshop.services.GameService;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -32,17 +33,11 @@ public class GameController {
     }
 
     @GetMapping
-    public String gamesListPage(Model model){
-        /*
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        UserDetails userDetail = (UserDetails) auth.getPrincipal();
+    public String gamesListPage(@RequestParam(defaultValue = "0") int page, Model model){
 
+        Page<Game> games = gameService.getGamesOrderByName(page);
 
-        User u = userService.getUser(userDetail.getUsername());
-        request.getSession().setAttribute("userId", u.getId());
-        */
-
-        model.addAttribute("games", gameService.getGames());
+        model.addAttribute("pages", games);
 
         return "game/gamesList";
     }

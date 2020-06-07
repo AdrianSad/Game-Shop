@@ -2,6 +2,9 @@ package com.adrian.gameshop.services;
 
 import com.adrian.gameshop.models.Game;
 import com.adrian.gameshop.repositories.GameRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -10,7 +13,6 @@ import java.io.IOException;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 
 @Service
@@ -52,6 +54,11 @@ public class GameServiceImpl implements GameService {
     }
 
     @Override
+    public Page<Game> getGamesOrderByName(int page) {
+        return gameRepository.findAllByOrderByNameAsc(PageRequest.of(subtractPageByOne(page), 2, Sort.by("name")));
+    }
+
+    @Override
     public void deleteById(Long id) {
         gameRepository.deleteById(id);
     }
@@ -75,5 +82,9 @@ public class GameServiceImpl implements GameService {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private int subtractPageByOne(int page){
+        return (page < 1) ? 0 : page - 1;
     }
 }

@@ -7,8 +7,8 @@
     <!--full width container, spanning the entire width of your viewport-->
     <div class="row">
         <div class="col-md-10 offset-md-1">
-            <div class="card border-0" th:if="${not #lists.isEmpty(games)}">
-                <div class="card border-dark" style="margin-top: 10px" th:each="game : ${games}">
+            <div class="card border-0" th:if="${not #lists.isEmpty(pages)}">
+                <div class="card border-dark" style="margin-top: 10px" th:each="game : ${pages}">
 
                     <div class="card-header">
                         <div class="row">
@@ -71,6 +71,7 @@
                             </div>
                         </div>
                     </div>
+                <div th:replace="/fragments/pagination :: pagination(URLparameter='/games')"/>
                 </div>
             </div>
         </div>

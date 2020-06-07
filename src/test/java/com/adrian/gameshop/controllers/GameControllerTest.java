@@ -10,6 +10,8 @@ import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.mock.web.MockMultipartFile;
@@ -17,8 +19,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.ui.Model;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
@@ -54,21 +56,23 @@ class GameControllerTest {
     @Test
     void gamesListPage() throws Exception {
 
-        Set<Game> games = new HashSet<>();
-        games.add(new Game());
+        List<Game> gameList = new ArrayList<>();
+        gameList.add(new Game());
 
-        when(gameService.getGames()).thenReturn(games);
+        Page<Game> games = new PageImpl<Game>(gameList);
 
-        ArgumentCaptor<Set<Game>> argumentCaptor = ArgumentCaptor.forClass(Set.class);
+        when(gameService.getGamesOrderByName(0)).thenReturn(games);
 
-        String viewName = gameController.gamesListPage(model);
+        ArgumentCaptor<Page<Game>> argumentCaptor = ArgumentCaptor.forClass(Page.class);
+
+        String viewName = gameController.gamesListPage(0,model);
         assertEquals("game/gamesList", viewName);
 
-        verify(gameService, times(1)).getGames();
-        verify(model, times(1)).addAttribute(eq("games"), argumentCaptor.capture());
+        verify(gameService, times(1)).getGamesOrderByName(anyInt());
+        verify(model, times(1)).addAttribute(eq("pages"), argumentCaptor.capture());
 
-        Set<Game> setInController = argumentCaptor.getValue();
-        assertEquals(1, setInController.size());
+        Page<Game> setInController = argumentCaptor.getValue();
+        assertEquals(1, setInController.getTotalPages());
     }
 
     @Test
