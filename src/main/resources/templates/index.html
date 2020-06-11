@@ -1,8 +1,14 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{fragments/layout :: header(title ='Welcome Page')}"></head>
+<head>
+    <div th:replace="~{fragments/layout :: header(title ='Welcome Page')}">
+    </div>
+    <link th:href="@{/css/main.css}" href="../static/css/main.css" rel="stylesheet">
+</head>
 <body>
 <nav th:replace="~{fragments/layout :: navigation}"></nav>
+
+<!-- CAROUSEL -->
 
 <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
     <ol class="carousel-indicators">
@@ -33,14 +39,54 @@
         <span class="sr-only">Next</span>
     </a>
 
-    <div class="container marketing">
-        <div class="col-md-6 offset-3" style="margin-top: 100px">
+    <div class="container marketing" style="margin-top: 50px">
 
-            <p>Game shop application to train CRUD operations.</p>
-            <p>Project written using mainly Spring Framework.</p>
+        <!-- FEATURES -->
 
+        <hr class="featurette-divider">
+
+        <div class="row featurette">
+            <div class="col-md-7">
+                <h2 class="featurette-heading">Create new game offers. <span
+                        class="text-muted">Add your game.</span></h2>
+                <p class="lead">Just press the create button, insert game's data in a form and submit it.</p>
+            </div>
+            <div class="col-md-5">
+                <a href="#" th:href="@{'/games/new'}"
+                   class="btn btn-outline-dark btn-lg btn-block" role="button">Create</a>
+            </div>
         </div>
+
+        <hr class="featurette-divider">
+
+        <div class="row featurette">
+            <div class="col-md-7 order-md-2">
+                <h2 class="featurette-heading">Made a mistake?<span
+                        class="text-muted"> Update game's data.</span></h2>
+                <p class="lead">Update game data by filling out the form one more time.</p>
+            </div>
+            <div class="col-md-5 order-md-1">
+
+            </div>
+        </div>
+
+        <hr class="featurette-divider">
+
+        <div class="row featurette">
+            <div class="col-md-7">
+                <h2 class="featurette-heading">You can obviously delete your games whenever you want.
+                    <span class="text-muted"> Just press delete button.</span></h2>
+                <p class="lead">You need to log in, find your game and then delete it by pressing a button.</p>
+            </div>
+            <div class="col-md-5">
+
+            </div>
+        </div>
+
+        <hr class="featurette-divider">
     </div>
 </div>
+
+<footer th:replace="~{fragments/layout :: footer}"></footer>
 </body>
 </html>

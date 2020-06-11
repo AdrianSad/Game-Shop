@@ -36,6 +36,36 @@ For mysql profile you will need MySQL Database which you can download here : htt
 3. Run mysql-configure.sql inside MySQL workbench
 4. Run the app with `spring.profiles.active=mysql`
 
+### Admin
+
+login : 
+`admin@example.com`
+
+password :
+`password`
+
+Permissions : 
+
+- View all games and companies
+- Add games and companies
+- Remove all games and companies
+- Update all games and companies
+
+### Customer
+
+login : 
+`jan@example.com`
+
+password :
+`password`
+
+Permissions : 
+
+- View game and company
+- Add games
+- Remove own game
+- Update own game
+
 ## Technologies : 
 
 **Controller :** Spring MVC
@@ -65,18 +95,37 @@ For mysql profile you will need MySQL Database which you can download here : htt
 
 ## Functionality overview
 
+`http://localhost:8080/`
+![Game List](/img/mainPage.png)
+
 `http://localhost:8080/games`
 
+![Game List](/img/login.png)
+
+`http://localhost:8080/login`
+
+![Game List](/img/register.png)
+
+`http://localhost:8080/register`
+
 ![Game List](/img/games.png)
-
-`http://localhost:8080/companies`
-
-![Company List](/img/companies.png)
 
 `http://localhost:8080/games/1/show`
 
 ![Game detail](/img/games_1_show.png)
 
+`http://localhost:8080/games/new`
+
+![Game detail](/img/games_new.png)
+
+`http://localhost:8080/companies`
+
+![Company List](/img/companies.png)
+
 `http://localhost:8080/companies/3/show`
 
-![Company games detail](/img/companies_2_show.png)
+![Company games detail](/img/companies_3_show.png)
+
+
+
+

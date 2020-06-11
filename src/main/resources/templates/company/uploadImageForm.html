@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{fragments/layout :: header(title ='Upload image')}"></head>
+<head>
+    <div th:replace="~{fragments/layout :: header(title ='Upload image')}"></div>
+</head>
 
 <body>
 <nav th:replace="~{fragments/layout :: navigation}"></nav>
@@ -9,8 +11,8 @@
     <div class="col-md-6 offset-3" style="margin-top: 50px">
         <h1 style="text-align: center">Upload Company's Logo</h1>
 
-        <form  action="http:\\localhost" method="post" enctype="multipart/form-data"
-               th:action="@{'/companies/' + ${company.getId()} + '/logo'}">
+        <form action="http:\\localhost" method="post" enctype="multipart/form-data"
+              th:action="@{'/companies/' + ${company.getId()} + '/logo'}">
             <label class="control-label">Select File</label>
             <input id="imageFile" name="file" type="file" class="custom-file">
             <button type="submit" class="btn btn-primary">Submit</button>
@@ -18,5 +20,8 @@
 
     </div>
 </div>
+
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+
 </body>
 </html>

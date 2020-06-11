@@ -5,7 +5,7 @@
 <body>
 <div th:fragment="pagination">
 
-    <div class="text-center" th:with="baseUrl=${URLparameter}" style="margin-top: 20px">
+    <div class="text-center" th:with="baseUrl=${URLparameter}" style="margin-top: 20px; margin-bottom: 20px">
         <span th:if="${pages.getNumber() + 1} < 0 or ${pages.getNumber() + 1} > ${pages.getTotalElements()}">
             Page is out of bounds. Go back to <a class="pageLink"
                                                  th:href="@{${baseUrl}(page=1)}">Home</a>.

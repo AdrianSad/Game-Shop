@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{fragments/layout :: header(title ='Game details')}"></head>
-
+<head>
+    <div th:replace="~{fragments/layout :: header(title ='Game details')}"></div>
+</head>
 <body>
 
 <nav th:replace="~{fragments/layout :: navigation}"></nav>
@@ -43,6 +44,8 @@
         </div>
     </div>
 </div>
+
+<footer th:replace="~{fragments/layout :: footer}"></footer>
 
 </body>
 </html>

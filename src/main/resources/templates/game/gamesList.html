@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<head th:replace="~{fragments/layout :: header(title ='Game List')}"></head>
+<head>
+    <div th:replace="~{fragments/layout :: header(title ='Game List')}"></div>
+</head>
 <body>
 <nav th:replace="~{fragments/layout :: navigation}"></nav>
 <div class="container-fluid" style="margin-top: 20px">
@@ -16,7 +18,8 @@
                                 <h2 class="card-title" th:text="${game.name}">title</h2>
                             </div>
                             <div class="col-md-2">
-                                <h6 class="float-md-right" th:text="${game.price} + '$'" style="color: limegreen; margin-top: 10px">price</h6>
+                                <h6 class="float-md-right" th:text="${game.price} + '$'"
+                                    style="color: limegreen; margin-top: 10px">price</h6>
                             </div>
                         </div>
                     </div>
@@ -26,11 +29,13 @@
                             <div class="col-md-2">
                                 <img class="rounded float-left" style="height: 300px; width: 200px"
                                      th:unless="${game.image != null}"
-                                     th:src="@{/images/image-placeholder.jpg}" src="../../static/images/image-placeholder.jpg"
+                                     th:src="@{/images/image-placeholder.jpg}"
+                                     src="../../static/images/image-placeholder.jpg"
                                      alt="Add new image">
                                 <img class="rounded float-left" style="height: 300px; width: 200px"
                                      th:if="${game.image != null}"
-                                     th:src="@{'/games/' + ${game.id} + '/gameImage'}" src="../../static/images/wiedzmin3_cover.jpg"
+                                     th:src="@{'/games/' + ${game.id} + '/gameImage'}"
+                                     src="../../static/images/wiedzmin3_cover.jpg"
                                      alt="Game's image">
                             </div>
                             <div class="col-md-8">
@@ -47,35 +52,46 @@
                             </div>
                             <div class="col-md-2">
                                 <a href="#" th:href="@{'/games/' + ${game.id} + '/show'}"
-                                   class="btn btn-outline-dark btn-block" role="button" style="vertical-align: middle">More details</a>
+                                   class="btn btn-outline-dark btn-block" role="button" style="vertical-align: middle">More
+                                    details</a>
 
-                                <div th:switch="${#authentication.name} == ${game.getUser().getEmail()}" style="margin-top: 10px">
+                                <div th:switch="${#authentication.name} == ${game.getUser().getEmail()}"
+                                     style="margin-top: 10px">
 
                                     <div th:case="true">
-                                    <a href="#" th:href="@{'/games/' + ${game.id} + '/update'}"
-                                        class="btn btn-outline-success btn-block" role="button" style="vertical-align: middle">Update</a>
-                                    <a href="#" th:href="@{'/games/' + ${game.id} + '/delete'}"
-                                       class="btn btn-outline-danger btn-block" role="button" style="vertical-align: middle">Delete</a>
+                                        <a href="#" th:href="@{'/games/' + ${game.id} + '/update'}"
+                                           class="btn btn-outline-success btn-block" role="button"
+                                           style="vertical-align: middle">Update</a>
+                                        <a href="#" th:href="@{'/games/' + ${game.id} + '/delete'}"
+                                           class="btn btn-outline-danger btn-block" role="button"
+                                           style="vertical-align: middle">Delete</a>
                                     </div>
 
                                     <div th:case="false">
-                                        <a sec:authorize="hasRole('ROLE_ADMIN')" href="#" th:href="@{'/games/' + ${game.id} + '/update'}"
-                                           class="btn btn-outline-success btn-block" role="button" style="vertical-align: middle">Update</a>
-                                        <a sec:authorize="hasRole('ROLE_ADMIN')" href="#" th:href="@{'/games/' + ${game.id} + '/delete'}"
-                                           class="btn btn-outline-danger btn-block" role="button" style="vertical-align: middle">Delete</a>
-                                    </div>
+                                        <a sec:authorize="hasRole('ROLE_ADMIN')" href="#"
+                                           th:href="@{'/games/' + ${game.id} + '/update'}"
+                                           class="btn btn-outline-success btn-block" role="button"
+                                           style="vertical-align: middle">Update</a>
+                                        <a sec:authorize="hasRole('ROLE_ADMIN')" href="#"
+                                           th:href="@{'/games/' + ${game.id} + '/delete'}"
+                                           class="btn btn-outline-danger btn-block" role="button"
+                                           style="vertical-align: middle">Delete</a>
                                     </div>
                                 </div>
-
-
                             </div>
+
+
                         </div>
                     </div>
-                <div th:replace="/fragments/pagination :: pagination(URLparameter='/games')"/>
                 </div>
+                <div th:replace="/fragments/pagination :: pagination(URLparameter='/games')"/>
             </div>
         </div>
     </div>
 </div>
+</div>
+
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+
 </body>
 </html>

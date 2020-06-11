@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{fragments/layout :: header(title ='New Company')}"></head>
+<head>
+    <div th:replace="~{fragments/layout :: header(title ='New Company')}"></div>
+</head>
 <body>
 <nav th:replace="~{fragments/layout :: navigation}"></nav>
 
@@ -21,7 +23,8 @@
 
             <div class="form-group">
                 <label for="inputTitle">Nationality</label>
-                <input type="text" class="form-control" id="inputTitle" placeholder="Company nationality" th:field="*{nationality}"
+                <input type="text" class="form-control" id="inputTitle" placeholder="Company nationality"
+                       th:field="*{nationality}"
                        th:classappend="${not #lists.isEmpty(#fields.errors('nationality'))} ? is-invalid" required>
                 <div class="invalid-feedback">
                     <p th:each="error : ${#fields.errors('nationality')}" th:text="${error}"></p>
@@ -34,5 +37,7 @@
         </form>
     </div>
 </div>
+
+<footer th:replace="~{fragments/layout :: footer}"></footer>
 </body>
 </html>
