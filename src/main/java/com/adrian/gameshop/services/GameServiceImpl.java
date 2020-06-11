@@ -5,6 +5,8 @@ import com.adrian.gameshop.repositories.GameRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -60,6 +62,7 @@ public class GameServiceImpl implements GameService {
 
     @Override
     public void deleteById(Long id) {
+
         gameRepository.deleteById(id);
     }
 

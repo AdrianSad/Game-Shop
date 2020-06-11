@@ -6,6 +6,10 @@ import com.adrian.gameshop.services.CompanyService;
 import com.adrian.gameshop.services.GameService;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.data.domain.Page;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -93,19 +97,31 @@ public class GameController {
     @GetMapping("/{id}/delete")
     public String deleteGame(@PathVariable Long id){
 
-        gameService.deleteById(id);
-
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+            if(gameService.findById(id).getUser().getEmail().equals(authentication.getName()) || authentication.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ADMIN"))) {
+                gameService.deleteById(id);
+            }
+        }
         return "redirect:/games";
     }
 
     @GetMapping("/{id}/update")
     public String updateGame(@PathVariable Long id, Model model){
 
-        model.addAttribute("game", gameService.findById(id));
-        model.addAttribute("companies", companyService.getCompanies());
-        model.addAttribute("categories", categoryRepository.findAll());
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+            if(gameService.findById(id).getUser().getEmail().equals(authentication.getName()) || authentication.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ADMIN"))) {
+                model.addAttribute("game", gameService.findById(id));
+                model.addAttribute("companies", companyService.getCompanies());
+                model.addAttribute("categories", categoryRepository.findAll());
 
-        return "game/createForm";
+                return "game/createForm";
+            }
+        }
+
+        return "redirect:/games";
+
     }
 
     @GetMapping("/{id}/gameImage")

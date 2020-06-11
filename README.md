@@ -96,31 +96,39 @@ Permissions :
 ## Functionality overview
 
 `http://localhost:8080/`
+
 ![Game List](/img/mainPage.png)
 
-`http://localhost:8080/games`
-
-![Game List](/img/login.png)
 
 `http://localhost:8080/login`
 
-![Game List](/img/register.png)
+![Game List](/img/login.png)
+
 
 `http://localhost:8080/register`
 
+![Game List](/img/register.png)
+
+
+`http://localhost:8080/games`
+
 ![Game List](/img/games.png)
+
 
 `http://localhost:8080/games/1/show`
 
 ![Game detail](/img/games_1_show.png)
 
+
 `http://localhost:8080/games/new`
 
 ![Game detail](/img/games_new.png)
 
+
 `http://localhost:8080/companies`
 
 ![Company List](/img/companies.png)
+
 
 `http://localhost:8080/companies/3/show`
 

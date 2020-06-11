@@ -26,8 +26,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.authorizeRequests()
                 .antMatchers("/games/new").authenticated()
-                .antMatchers("/companies/new").authenticated()
-                .antMatchers("/h2-console/**").permitAll()
+                .antMatchers("/games/{id}/update").authenticated()
+                .antMatchers("/games/{id}/delete").authenticated()
+                .antMatchers("/companies/new").hasRole("ADMIN")
+                .antMatchers("/companies/{id}/delete").hasRole("ADMIN")
+                .antMatchers("/companies/{id}/update").hasRole("ADMIN")
                 .anyRequest().permitAll()
                 .and()
                 .formLogin()
@@ -40,7 +43,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .logout().deleteCookies("JSESSIONID").logoutSuccessUrl("/")
                 .and()
-                .rememberMe().rememberMeParameter("remember-me").key("uniqueAndSecret").tokenValiditySeconds(900);
+                .rememberMe().rememberMeParameter("remember-me").key("62efb8de-c9f7-4688-a3a3-47af28a849fe").tokenValiditySeconds(900);
     }
 
     @Override

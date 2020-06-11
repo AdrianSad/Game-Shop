@@ -2,6 +2,7 @@ package com.adrian.gameshop.controllers;
 
 import com.adrian.gameshop.models.Company;
 import com.adrian.gameshop.models.Game;
+import com.adrian.gameshop.models.User;
 import com.adrian.gameshop.repositories.CategoryRepository;
 import com.adrian.gameshop.services.CompanyService;
 import com.adrian.gameshop.services.GameService;
@@ -10,11 +11,13 @@ import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.ui.Model;
@@ -27,6 +30,7 @@ import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+@SpringBootTest
 class GameControllerTest {
 
     @Mock
@@ -185,10 +189,15 @@ class GameControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "admin@example.com", roles = "ADMIN")
     void updateGame() throws Exception {
+
+        User admin = new User();
+        admin.setEmail("admin@example.com");
 
         Game game = new Game();
         game.setId(1L);
+        game.setUser(admin);
 
         when(gameService.findById(anyLong())).thenReturn(game);
 
@@ -196,5 +205,23 @@ class GameControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name("game/createForm"))
                 .andExpect(model().attributeExists("game"));
+    }
+
+    @Test
+    @WithMockUser(username = "admin@example.com", roles = "ADMIN")
+    void deleteGame() throws Exception {
+
+        User admin = new User();
+        admin.setEmail("admin@example.com");
+
+        Game game = new Game();
+        game.setUser(admin);
+
+        when(gameService.findById(anyLong())).thenReturn(game);
+
+        mockMvc.perform(get("/games/1/delete"))
+                .andExpect(status().is3xxRedirection());
+
+        verify(gameService, times(1)).deleteById(anyLong());
     }
 }

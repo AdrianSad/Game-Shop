@@ -13,7 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @Service
 @Transactional
@@ -42,7 +41,7 @@ public class MyUserDetailsService implements UserDetailsService {
 
     }
 
-    private static List<GrantedAuthority> getAuthorities (Set<UserRole> roles) {
+    private static List<GrantedAuthority> getAuthorities (List<UserRole> roles) {
 
         List<GrantedAuthority> authorities = new ArrayList<>();
 
