@@ -22,3 +22,8 @@ INSERT IGNORE INTO user_roles(id, name) VALUES (2, 'CUSTOMER');
 INSERT IGNORE INTO users_roles(userID, roleID) VALUES (1,1);
 INSERT IGNORE INTO users_roles(userID, roleID) VALUES (2,2);
 INSERT IGNORE INTO users_roles(userID, roleID) VALUES (1,2);
+
+INSERT IGNORE INTO purchases(id, game_id, date, user_id) values (1, 1, '2020-11-10', 2);
+INSERT IGNORE INTO purchases(id, game_id, date, user_id) values (2, 2, '2020-11-11', 2);
+INSERT IGNORE INTO purchases(id, game_id, date, user_id) values (3, 3, '2020-11-12', 1);
+INSERT IGNORE INTO purchases(id, game_id, date, user_id) values (4, 3, '2020-11-11', 1);

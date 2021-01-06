@@ -5,6 +5,7 @@ DROP TABLE IF EXISTS companies;
 DROP TABLE IF EXISTS user_roles;
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS users_roles;
+DROP TABLE IF EXISTS purchases;
 
 CREATE TABLE companies
 (
@@ -68,3 +69,13 @@ ALTER TABLE users_roles ADD CONSTRAINT user_cst FOREIGN KEY (userID) REFERENCES 
 ALTER TABLE users_roles ADD CONSTRAINT role_cst FOREIGN KEY (roleID) REFERENCES user_roles(id);
 ALTER TABLE game_category ADD CONSTRAINT game_cst FOREIGN KEY (game_id) REFERENCES games(id);
 ALTER TABLE game_category ADD CONSTRAINT category_cst FOREIGN KEY (category_id) REFERENCES categories(id);
+
+CREATE TABLE purchases
+(
+    id INTEGER IDENTITY NOT NULL PRIMARY KEY,
+    game_id INTEGER NOT NULL,
+    date DATE NOT NULL,
+    user_id INTEGER NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    FOREIGN KEY (game_id) REFERENCES games(id)
+);

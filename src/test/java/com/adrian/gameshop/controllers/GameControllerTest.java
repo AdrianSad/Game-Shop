@@ -4,8 +4,10 @@ import com.adrian.gameshop.models.Company;
 import com.adrian.gameshop.models.Game;
 import com.adrian.gameshop.models.User;
 import com.adrian.gameshop.repositories.CategoryRepository;
+import com.adrian.gameshop.repositories.PurchaseRepository;
 import com.adrian.gameshop.services.CompanyService;
 import com.adrian.gameshop.services.GameService;
+import com.adrian.gameshop.services.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
@@ -43,6 +45,12 @@ class GameControllerTest {
     CategoryRepository categoryRepository;
 
     @Mock
+    PurchaseRepository purchaseRepository;
+
+    @Mock
+    UserService userService;
+
+    @Mock
     Model model;
 
     GameController gameController;
@@ -53,7 +61,7 @@ class GameControllerTest {
     void setUp() {
 
         MockitoAnnotations.initMocks(this);
-        gameController = new GameController(gameService, companyService, categoryRepository);
+        gameController = new GameController(gameService, companyService, categoryRepository, purchaseRepository, userService);
         mockMvc = MockMvcBuilders.standaloneSetup(gameController).build();
     }
 

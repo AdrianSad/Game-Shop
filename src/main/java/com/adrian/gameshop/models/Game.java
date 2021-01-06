@@ -47,6 +47,10 @@ public class Game extends BaseEntity{
     @NotNull
     private User user;
 
+    @OneToMany(mappedBy = "game",
+            cascade = CascadeType.ALL)
+    private Set<Purchase> purchases = new HashSet<>();
+
     @Lob
     @Column(name = "image")
     private Byte[] image;

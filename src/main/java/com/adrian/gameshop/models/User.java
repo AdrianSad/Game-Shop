@@ -56,4 +56,8 @@ public class User {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY)
     private Set<Game> games = new HashSet<>();
+
+    @OneToMany(mappedBy = "user",
+            cascade = CascadeType.ALL)
+    private Set<Purchase> purchases = new HashSet<>();
 }

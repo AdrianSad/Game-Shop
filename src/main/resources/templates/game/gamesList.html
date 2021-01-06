@@ -68,6 +68,10 @@
                                     </div>
 
                                     <div th:case="false">
+                                        <a sec:authorize="hasRole('ROLE_CUSTOMER')" href="#"
+                                           th:href="@{'/games/' + ${game.id} + '/buy'}"
+                                           class="btn btn-outline-success btn-block" role="button"
+                                           style="vertical-align: middle">Buy</a>
                                         <a sec:authorize="hasRole('ROLE_ADMIN')" href="#"
                                            th:href="@{'/games/' + ${game.id} + '/update'}"
                                            class="btn btn-outline-success btn-block" role="button"

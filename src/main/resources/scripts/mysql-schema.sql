@@ -22,7 +22,7 @@ id INTEGER NOT NULL auto_increment PRIMARY KEY,
 name VARCHAR(64) NOT NULL,
 description LONGBLOB NOT NULL,
 platforms VARCHAR(128),
-price FLOAT(2) NOT NULL,
+price DECIMAL(4,2) NOT NULL,
 company_id INTEGER NOT NULL,
 user_id INTEGER NOT NULL,
 image LONGBLOB,
@@ -59,4 +59,14 @@ CREATE TABLE IF NOT EXISTS users_roles
     PRIMARY KEY (userID, roleID),
     FOREIGN KEY (userID) REFERENCES users(id),
     FOREIGN KEY (roleID) REFERENCES user_roles(id)
+);
+
+CREATE TABLE IF NOT EXISTS purchases
+(
+    id INTEGER NOT NULL auto_increment PRIMARY KEY,
+    game_id INTEGER NOT NULL,
+    date DATE NOT NULL,
+    user_id INTEGER NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    FOREIGN KEY (game_id) REFERENCES games(id)
 );

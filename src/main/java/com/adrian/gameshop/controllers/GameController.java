@@ -1,9 +1,13 @@
 package com.adrian.gameshop.controllers;
 
 import com.adrian.gameshop.models.Game;
+import com.adrian.gameshop.models.Purchase;
+import com.adrian.gameshop.models.User;
 import com.adrian.gameshop.repositories.CategoryRepository;
+import com.adrian.gameshop.repositories.PurchaseRepository;
 import com.adrian.gameshop.services.CompanyService;
 import com.adrian.gameshop.services.GameService;
+import com.adrian.gameshop.services.UserService;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -21,6 +25,7 @@ import javax.validation.Valid;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Date;
 
 @Controller
 @RequestMapping("/games")
@@ -29,11 +34,15 @@ public class GameController {
     private final GameService gameService;
     private final CompanyService companyService;
     private final CategoryRepository categoryRepository;
+    private final PurchaseRepository purchaseRepository;
+    private final UserService userService;
 
-    public GameController(GameService gameService, CompanyService companyService, CategoryRepository categoryRepository) {
+    public GameController(GameService gameService, CompanyService companyService, CategoryRepository categoryRepository, PurchaseRepository purchaseRepository, UserService userService) {
         this.gameService = gameService;
         this.companyService = companyService;
         this.categoryRepository = categoryRepository;
+        this.purchaseRepository = purchaseRepository;
+        this.userService = userService;
     }
 
     @GetMapping
@@ -137,5 +146,24 @@ public class GameController {
         response.setContentType("image/jpeg");
         InputStream inputStream = new ByteArrayInputStream(byteArray);
         IOUtils.copy(inputStream, response.getOutputStream());
+    }
+
+    @GetMapping("/{id}/buy")
+    public String buyGame(@PathVariable Long id, Model model){
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+            Game tempGame = gameService.findById(id);
+            User tempUser = userService.getUser(authentication.getName());
+            Purchase tempPurchase = new Purchase();
+            tempPurchase.setDate(new Date());
+            tempPurchase.setGame(tempGame);
+            tempPurchase.setUser(tempUser);
+
+            purchaseRepository.save(tempPurchase);
+            model.addAttribute("game", tempGame);
+            return "redirect:/games/" + id + "/show";
+        } else
+            return "redirect:/games";
     }
 }
